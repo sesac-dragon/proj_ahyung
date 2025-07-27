@@ -7,7 +7,7 @@ from datetime import datetime
 # 최신 logNo 5개 가져오기
 latest_logno = get_latest_logNo()
 
-cafe_data = crawl_pages(pages=15, keyword="뜨개카페", latest_logno=latest_logno)
+cafe_data = crawl_pages(pages=40, keyword="뜨개카페", latest_logno=latest_logno)
 
 
 if cafe_data:

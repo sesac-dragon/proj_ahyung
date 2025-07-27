@@ -51,9 +51,6 @@ def parse_blog_date(date_text):
         elif "시간 전" in date_text:
             hours = int(re.search(r"(\d+)시간", date_text).group(1))
             return now - timedelta(hours=hours)
-        elif "일 전" in date_text:
-            days = int(re.search(r"(\d+)일", date_text).group(1))
-            return now - timedelta(days=days)
         else:
             # yyyy.mm.dd 형식이라면 그대로 datetime으로
             return datetime.strptime(date_text, "%Y. %m. %d. %H:%M")
