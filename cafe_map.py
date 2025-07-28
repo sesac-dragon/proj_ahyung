@@ -1,8 +1,10 @@
 import streamlit as st
 import pandas as pd
-import plotly.express as px
 import pymysql
 from db import load_env
+from streamlit_folium import folium_static
+import folium
+from folium.plugins import MarkerCluster
 
 st.markdown("# cafe-map")
 
@@ -28,16 +30,22 @@ def get_cafe_data():
 
 df = get_cafe_data()
 
-# filtered_df = df[df['cafename'] == '바늘이야기 파주직영점']
-# filtered_df
+# 지도
+if not df.empty:
+    center_lat = df["latitude"].mean()
+    center_lon = df["longitude"].mean()
+    my_map = folium.Map(location=[center_lat, center_lon], zoom_start=12)
 
-fig = px.scatter_map(df,
-                        lat="latitude",
-                        lon="longitude",
-                        hover_name="cafename",
-                        zoom=5,
-                        height=700,)
+    # 마커 추가
+    for index, row in df.iterrows():
+        folium.Marker(
+            location=[row["latitude"], row["longitude"]],
+            popup=f"{row['cafename']}<br>{row['cafeaddress']}<br>{row['blogdate']}",
+            tooltip=row["cafename"]
+        ).add_to(my_map)
 
-fig.update_layout(mapbox_style="open-street-map")
-
-st.plotly_chart(fig, use_container_width=True)
+    # folium 지도 출력
+    st_folium(my_map, width=1000, height=600)
+else:
+    st.warning("표시할 데이터가 없습니다.")
+    

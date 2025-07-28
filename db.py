@@ -12,7 +12,7 @@ def load_env(path=".env"):
     return envs
 
 
-# DB 저장 함수 
+# DB 저장 함수
 def insert_cafe_data(blog_data, env_path=".env"):
     envs = load_env(env_path)
 
@@ -26,17 +26,17 @@ def insert_cafe_data(blog_data, env_path=".env"):
     )
     try:
         with conn.cursor() as cur:
-            sql = "INSERT INTO tb_cafe (logNo,cafename,cafeaddress,latitude,longitude,blogtext,blogdate) VALUES (%s,%s,%s,%s,%s,%s,%s)"
+            sql = "INSERT IGNORE INTO tb_cafe (logNo,cafename,cafeaddress,latitude,longitude,blogtext,blogdate) VALUES (%s,%s,%s,%s,%s,%s,%s)"
 
             values = [
                 (
-                    data['logNo'],
+                    data["logNo"],
                     data["카페이름"],
                     data["카페주소"],
                     float(data["위도"]),
                     float(data["경도"]),
                     data["블로그내용"],
-                    data['블로그작성일']
+                    data["블로그작성일"],
                 )
                 for data in blog_data
             ]
@@ -44,11 +44,11 @@ def insert_cafe_data(blog_data, env_path=".env"):
             cur.executemany(sql, values)
         conn.commit()
     except Exception as e:
-        print('DB 저장 중 오류 발생', e)
+        print("DB 저장 중 오류 발생", e)
 
 
 # 최신글
-def get_latest_logNo(env_path=".env"):
+def get_latest_logNo(limit=5, env_path=".env"):
     envs = load_env(env_path)
     conn = pymysql.connect(
         host=envs["DB_HOST"],
@@ -60,6 +60,6 @@ def get_latest_logNo(env_path=".env"):
     )
 
     with conn.cursor(cursor=pymysql.cursors.DictCursor) as cur:
-        cur.execute("SELECT logNo FROM tb_cafe ORDER BY blogdate DESC LIMIT 1")
-        result = cur.fetchone()
-        return result["logNo"] if result else None
+        cur.execute(f"SELECT logNo FROM tb_cafe ORDER BY blogdate DESC LIMIT {limit}")
+        result = cur.fetchall()
+        return set(row["logNo"] for row in result)
