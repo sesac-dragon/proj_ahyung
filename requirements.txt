@@ -4,3 +4,4 @@ numpy
 BeautifulSoup4
 pymysql
 streamlit
+streamlit_folium

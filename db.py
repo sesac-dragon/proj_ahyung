@@ -12,6 +12,12 @@ def load_env(path=".env"):
     return envs
 
 
+# class CafeDB:
+
+#     def __init__(self):
+#         pass
+
+
 # DB 저장 함수
 def insert_cafe_data(blog_data, env_path=".env"):
     envs = load_env(env_path)
