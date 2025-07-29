@@ -6,14 +6,12 @@ from datetime import datetime
 # 최신 logNo 5개 가져오기
 latest_logno = get_latest_logNo(limit=5)
 
-cafe_data = crawl_pages(pages=5, keyword="뜨개카페", latest_logno=latest_logno)
+cafe_data = crawl_pages(pages=20, keyword="뜨개카페", latest_logno=latest_logno)
 
 
 if cafe_data:
     try:
-        cafe_data.sort(
-            key=lambda x: x["블로그작성일"]
-            )
+        cafe_data.sort(key=lambda x: x["블로그작성일"])
     except Exception as e:
         print(f"정렬 중 오류 발생: {e}")
 

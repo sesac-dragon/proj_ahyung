@@ -3,12 +3,17 @@ import pymysql.cursors
 
 
 # .env 파일 불러오는 함수
+import os
+
+
 def load_env(path=".env"):
     envs = {}
     with open(path, "r") as f:
-        for line in f.readlines():
-            key, value = line.rstrip().split("=")
-            envs[key] = value
+        for line in f:
+            if "=" in line:
+                key, value = line.strip().split("=", 1)
+                envs[key] = value
+                os.environ[key] = value  # 환경 변수도 등록
     return envs
 
 

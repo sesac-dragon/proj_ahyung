@@ -10,6 +10,10 @@ CREATE TABLE tb_cafe (
   PRIMARY KEY (id)
 );
 
+ALTER TABLE tb_cafe
+ADD COLUMN summary TEXT;
+
+
 SELECT id, logNo, cafename
 FROM tb_cafe
 ORDER BY logNo ASC;
