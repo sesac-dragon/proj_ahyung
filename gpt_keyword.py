@@ -25,13 +25,12 @@ crochet_keywords = [
     "실종류",
     "코바늘",
     "대바늘",
-    "뜨개카페",
-    "수세미",
     "원형뜨기",
     "모티브",
     "뜨개수업",
     "니팅",
     "손뜨개",
+    "모헤어",
 ]
 cafe_keywords = [
     "좌석",
@@ -42,6 +41,7 @@ cafe_keywords = [
     "음악",
     "에어컨",
     "와이파이",
+    "충전",
 ]
 
 
@@ -56,9 +56,9 @@ template = """
 너는 한국어 텍스트 분석 전문가야.
 다음 문장들은({context}) 블로그 리뷰에서 추출된 내용이야. 
 
-너가 각 문장에서 찾는 키워드는 뜨개카페와 관련된 키워드야
-뜨개카페와 관련된 키워드가 있는지 없는지 앞 뒤 문장을 보고 문맥을 바탕으로 정확히 판단해서 정리해줘.
-너가 생각했을 때 뽑아낸 키워드가 뜨개카페와 관련이 없으면 정리하지 마. 
+너가 각 문장에서 찾는 키워드는 뜨개질과 관련된 키워드야
+뜨개질과 관련된 키워드가 있는지 없는지 앞 뒤 문장을 보고 문맥을 바탕으로 정확히 판단해서 정리해줘.
+너가 생각했을 때 뽑아낸 키워드가 뜨개질과 관련이 없으면 정리하지 마. 
 
 예시를 참고해서 아래 형식으로 정리해줘.
 키워드만 작성해서 정리해줘.
@@ -85,6 +85,9 @@ def get_cafe_data():
         charset="utf8mb4",
         cursorclass=pymysql.cursors.DictCursor,
     )
+    
+    
+    print(f"처리할 데이터: {len(result)}개")
     query = "SELECT logNo, cafename, blogtext FROM tb_cafe WHERE summary IS NULL"
     with conn.cursor() as cur:
         cur.execute(query)

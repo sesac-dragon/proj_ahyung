@@ -5,3 +5,5 @@ BeautifulSoup4
 pymysql
 streamlit
 streamlit_folium
+streamlit_option_menu
+wordcloud matplotlib
