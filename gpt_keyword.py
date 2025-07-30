@@ -86,8 +86,6 @@ def get_cafe_data():
         cursorclass=pymysql.cursors.DictCursor,
     )
     
-    
-    print(f"처리할 데이터: {len(result)}개")
     query = "SELECT logNo, cafename, blogtext FROM tb_cafe WHERE summary IS NULL"
     with conn.cursor() as cur:
         cur.execute(query)
