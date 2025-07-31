@@ -6,4 +6,8 @@ pymysql
 streamlit
 streamlit_folium
 streamlit_option_menu
-wordcloud matplotlib
+langchain
+langchain-openai
+openai
+Wordcloud
+matplotlib
