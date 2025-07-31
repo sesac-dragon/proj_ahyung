@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import pymysql
-from db import load_env
+from crawler.db import load_env
 from streamlit_folium import st_folium
 from folium.plugins import MarkerCluster
 import folium
